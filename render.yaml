@@ -1,0 +1,20 @@
+services:
+  - type: cron
+    name: data-factory-v2
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python generate_dataset.py --upload
+    schedule: "0 */6 * * *"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: DATASET_NICHE
+        value: medical
+      - key: EXAMPLES_PER_RUN
+        value: "500"
+      - key: HUMANIZATION_LEVEL
+        value: extreme
+      - key: EXPORT_FORMATS
+        value: jsonl,csv,alpaca,sharegpt,openai,chatml
+      - key: HF_MODELS
+        value: mistralai/Mistral-7B-Instruct-v0.2,google/gemma-2-2b-it,microsoft/Phi-3-mini-4k-instruct
